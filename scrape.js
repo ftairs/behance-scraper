@@ -1,12 +1,12 @@
 // Custom Behance Scraper - 2023 - github.com/ftairs - Victor Fuentes
 
-console.log("beginning scrape...");
 const axios = require("axios");
 const cheerio = require("cheerio");
 const { writeFile } = require("fs/promises");
+const username = "ftairs";
 
 const config = {
-  userURL: "http://www.behance.net/ftairs",
+  userURL: `http://www.behance.net/${username}`,
   digDeep: true,
 };
 
@@ -18,12 +18,14 @@ async function writeToFile(fileName, data) {
     console.error(`Got an error trying to write the file: ${error.message}`);
   }
 }
+console.log("beginning scrape...");
 
 axios.get(config.userURL).then(({ data }) => {
   const $ = cheerio.load(data);
   let allProjects = [];
   const theItems = $(".js-project-cover")
     .map((_, project) => {
+      //this is creating all the toplevel stuff
       const $project = $(project);
       // TODO: pull image as object?
       let thisObj = {
@@ -46,6 +48,7 @@ axios.get(config.userURL).then(({ data }) => {
       axios
         .get("https://www.behance.net" + item.projectURL)
         .then(({ data }) => {
+          //this is creating all the individual items stuff
           const $$ = cheerio.load(data);
           //TODO: convert to spread concat
           allProjects[index].date = $$("time:first-of-type").first().text();
@@ -68,10 +71,25 @@ axios.get(config.userURL).then(({ data }) => {
             allProjects[index].tags.push($field.find("a").text());
           });
           writeToFile("scrape.json", JSON.stringify(allProjects));
+          writeToFile(
+            "client/src/data/scraped_data.js",
+            `
+            const data = ${JSON.stringify(allProjects)};
+            export default data;
+            `
+          );
+
           console.log(allProjects[index].content);
         });
     });
   } else {
     writeToFile("scrape.json", JSON.stringify(allProjects));
+    writeToFile(
+      "client/src/data/scraped_data.js",
+      `
+      const data = ${JSON.stringify(allProjects)};
+      export default data;
+      `
+    );
   }
 });
