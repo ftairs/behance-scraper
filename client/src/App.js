@@ -10,15 +10,19 @@ import {
   Stack,
   Link,
   Image,
+  GridItem,
+  Grid,
 } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import data from "./data/scraped_data";
 import JSONPretty from "react-json-pretty";
 require("react-json-pretty/themes/monikai.css");
+require("./helpers/removePlaceholders.css");
 
 function App() {
-  const [scrapeData, setScrapeData] = useState(null);
+  const [scrapeData, setScrapeData] = useState(undefined);
+  const [loadedContent, setLoadedContent] = useState(undefined);
   useEffect(() => {
     document.title = "Behance Scraper";
   }, []);
@@ -79,114 +83,121 @@ function App() {
                   <JSONPretty id="json-pretty" data={scrapeData}></JSONPretty>
                 </TabPanel>
                 <TabPanel>
-                  {scrapeData &&
-                    scrapeData.map((item) => {
-                      return (
-                        <Box>
-                          <Heading>{item.title}</Heading>
-                          <Stack>
-                            <Text>
-                              Project URL:{" "}
-                              <Link
-                                href={"https://behance.com" + item.projectURL}
-                              >
-                                {item.projectURL}
-                              </Link>
-                            </Text>
-                            <Text>
-                              Image:
-                              <Image w="300px" mt={2} src={item.image}></Image>
-                            </Text>
-                            <Text>
-                              Date: {item.date}{" "}
-                              <Box
-                                display="inline-block"
-                                background="gray.200"
-                                p={1}
-                                ml={2}
-                                borderRadius={4}
-                              >
-                                {typeof item.date}
+                  <Grid templateColumns="repeat(2, 1fr)" gap={8}>
+                    {scrapeData &&
+                      scrapeData.map((item) => {
+                        return (
+                          <GridItem
+                            border="1px solid gray"
+                            borderRadius={14}
+                            p={8}
+                            onClick={() => {
+                              setLoadedContent(item.content);
+                            }}
+                          >
+                            <Stack>
+                              <Box>
+                                <Image w="100%" mt={2} src={item.image}></Image>
                               </Box>
-                            </Text>
-                            <Text>
-                              Type:
-                              {item.type.map((type, ind) => {
-                                if (ind === item.type.length - 1) return type;
-                                return type + ", ";
-                              })}
-                              <Box
-                                display="inline-block"
-                                background="gray.200"
-                                p={1}
-                                ml={2}
-                                borderRadius={4}
-                              >
-                                {typeof item.type}
+                              <Box>
+                                <Link
+                                  href={"https://behance.com" + item.projectURL}
+                                >
+                                  <Heading>{item.title}</Heading>
+                                </Link>
                               </Box>
-                            </Text>
-                            <Text>
-                              Views: {item.views}
-                              <Box
-                                display="inline-block"
-                                background="gray.200"
-                                p={1}
-                                ml={2}
-                                borderRadius={4}
-                              >
-                                {typeof item.views}
-                              </Box>
-                            </Text>
-                            <Text>
-                              Likes: {item.likes}
-                              <Box
-                                display="inline-block"
-                                background="gray.200"
-                                p={1}
-                                ml={2}
-                                borderRadius={4}
-                              >
-                                {typeof item.likes}
-                              </Box>
-                            </Text>
-                            <Text>
-                              Comments: {item.commentCount}
-                              <Box
-                                display="inline-block"
-                                background="gray.200"
-                                p={1}
-                                ml={2}
-                                borderRadius={4}
-                              >
-                                {typeof item.commentCount}
-                              </Box>
-                            </Text>
-                            <Text>
-                              Description: {item.desc}
-                              <Box
-                                display="inline-block"
-                                background="gray.200"
-                                p={1}
-                                ml={2}
-                                borderRadius={4}
-                              >
-                                {typeof item.desc}
-                              </Box>
-                            </Text>
-                            <Text>
-                              Type:
-                              {item.tags.map((tag, ind) => {
-                                if (ind === item.type.length - 1) return tag;
-                                return tag + ", ";
-                              })}
-                            </Text>
-                            <Text>
-                              Content: <Button size="sm">View Content</Button>
-                            </Text>
-                          </Stack>
-                        </Box>
-                      );
-                    })}
+
+                              <Text>
+                                Date: {item.date}{" "}
+                                <Box
+                                  display="inline-block"
+                                  background="gray.200"
+                                  p={1}
+                                  ml={2}
+                                  borderRadius={4}
+                                >
+                                  {typeof item.date}
+                                </Box>
+                              </Text>
+                              <Text>
+                                Type:
+                                {item.type.map((type, ind) => {
+                                  if (ind === item.type.length - 1) return type;
+                                  return type + ", ";
+                                })}
+                                <Box
+                                  display="inline-block"
+                                  background="gray.200"
+                                  p={1}
+                                  ml={2}
+                                  borderRadius={4}
+                                >
+                                  {typeof item.type}
+                                </Box>
+                              </Text>
+                              <Text>
+                                Views: {item.views}
+                                <Box
+                                  display="inline-block"
+                                  background="gray.200"
+                                  p={1}
+                                  ml={2}
+                                  borderRadius={4}
+                                >
+                                  {typeof item.views}
+                                </Box>
+                              </Text>
+                              <Text>
+                                Likes: {item.likes}
+                                <Box
+                                  display="inline-block"
+                                  background="gray.200"
+                                  p={1}
+                                  ml={2}
+                                  borderRadius={4}
+                                >
+                                  {typeof item.likes}
+                                </Box>
+                              </Text>
+                              <Text>
+                                Comments: {item.commentCount}
+                                <Box
+                                  display="inline-block"
+                                  background="gray.200"
+                                  p={1}
+                                  ml={2}
+                                  borderRadius={4}
+                                >
+                                  {typeof item.commentCount}
+                                </Box>
+                              </Text>
+                              <Text>
+                                Description: {item.desc}
+                                <Box
+                                  display="inline-block"
+                                  background="gray.200"
+                                  p={1}
+                                  ml={2}
+                                  borderRadius={4}
+                                >
+                                  {typeof item.desc}
+                                </Box>
+                              </Text>
+                              <Text>
+                                Type:
+                                {item.tags.map((tag, ind) => {
+                                  if (ind === item.type.length - 1) return tag;
+                                  return tag + ", ";
+                                })}
+                              </Text>
+                              <Text>
+                                Content: <Button size="sm">View Content</Button>
+                              </Text>
+                            </Stack>
+                          </GridItem>
+                        );
+                      })}
+                  </Grid>
                 </TabPanel>
                 <TabPanel>
                   [
@@ -220,6 +231,33 @@ function App() {
             Make sure you've generated a file using the scrape.js file at the
             root of this project.
           </Text>
+        </Box>
+      )}
+
+      {loadedContent && (
+        <Box
+          position="fixed"
+          top="0"
+          left="0"
+          w="full"
+          h="100vh"
+          background="white"
+          overflow="scroll"
+        >
+          <Button
+            position="absolute"
+            top={8}
+            right={8}
+            onClick={() => {
+              setLoadedContent(undefined);
+            }}
+            background="black"
+            color="white"
+          >
+            Close Modal
+          </Button>
+
+          <Box dangerouslySetInnerHTML={{ __html: loadedContent }}></Box>
         </Box>
       )}
     </>
