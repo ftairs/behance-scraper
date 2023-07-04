@@ -68,9 +68,9 @@ function App() {
           <Box maxW="980px" margin="0 auto">
             <Tabs variant="soft-rounded" align="center">
               <TabList mb={8}>
-                <Tab>JSON</Tab>
-                <Tab>Visual</Tab>
-                <Tab>Text</Tab>
+                <Tab>Pretty</Tab>
+                <Tab>Cards</Tab>
+                <Tab>Plain Text</Tab>
               </TabList>
 
               <TabPanels align="left">
@@ -108,13 +108,23 @@ function App() {
                               </Box>
 
                               <Text>
-                                Date: {item.date}{" "}
+                                <Text
+                                  fontWeight="bold"
+                                  color="blue"
+                                  display="inline-block"
+                                >
+                                  Date
+                                </Text>{" "}
+                                {item.date}{" "}
                                 <Box
                                   display="inline-block"
-                                  background="gray.200"
-                                  p={1}
+                                  background="gray.700"
+                                  py={1}
+                                  px={3}
                                   ml={2}
-                                  borderRadius={4}
+                                  borderRadius={16}
+                                  fontSize={"xs"}
+                                  color="white"
                                 >
                                   {typeof item.date}
                                 </Box>
@@ -254,7 +264,7 @@ function App() {
             background="black"
             color="white"
           >
-            Close Modal
+            Close Content
           </Button>
 
           <Box dangerouslySetInnerHTML={{ __html: loadedContent }}></Box>
