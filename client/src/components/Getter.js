@@ -23,9 +23,9 @@ export default function Getter() {
   };
   return (
     <Box>
+      <Box fontSize="3xl">DO NOT USE THIS</Box>
       <Input
         onChange={(e) => {
-          console.log(e.target.value);
           setUsername(e.target.value);
         }}
         placeholder="username here"

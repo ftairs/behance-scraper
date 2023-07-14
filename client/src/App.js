@@ -43,14 +43,7 @@ function App() {
                 <TabPanel>
                   <Cardview data={scrapeData}></Cardview>
                 </TabPanel>
-                <TabPanel>
-                  [
-                  {scrapeData &&
-                    scrapeData.map((item) => {
-                      return <>{JSON.stringify(item)}</>;
-                    })}
-                  ]
-                </TabPanel>
+                <TabPanel>{scrapeData && JSON.stringify(scrapeData)}</TabPanel>
                 <TabPanel>
                   <Getter></Getter>
                 </TabPanel>

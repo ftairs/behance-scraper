@@ -41,7 +41,7 @@ export default function Carditem({ item, setLoadedContent }) {
 
   useEffect(() => {
     createArrays(setDetails);
-    console.log(details);
+    // console.log(details);
   }, [setDetails]);
 
   return (
@@ -91,7 +91,7 @@ export default function Carditem({ item, setLoadedContent }) {
             Object.keys(details).map((key, index) => {
               if (details[key].length) {
                 return (
-                  <Box>
+                  <Box key={key}>
                     <Box>
                       <Heading
                         color="brand.main"

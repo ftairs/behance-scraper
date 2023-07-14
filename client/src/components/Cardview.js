@@ -10,6 +10,7 @@ export default function Cardview({ data }) {
           data.map((item) => {
             return (
               <Carditem
+                key={item.title}
                 item={item}
                 setLoadedContent={setLoadedContent}
               ></Carditem>
