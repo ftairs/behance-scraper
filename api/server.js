@@ -9,8 +9,9 @@ app.use(cors()); // Enable CORS for all routes
 app.post("/user", async (req, res) => {
   try {
     // console.log(req.body);
-    let toSend = scraper(req.body);
-    res.json(toSend);
+    scraper(req.body).then((data) => {
+      res.json(data);
+    });
   } catch (error) {
     console.error("Error:", error.message);
     res.status(500).json({ error: "An error occurred" });

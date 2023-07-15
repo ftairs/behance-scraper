@@ -27,9 +27,8 @@ export default function Getter({ setScrapeData }) {
         });
         // setUserData(response.data);
         console.log("resp:", response.data);
-
         // set above
-        // setScrapeData(response.data.result)
+        setScrapeData(response.data);
         // console.log()
       } catch (error) {
         console.error("Error:", error.message);

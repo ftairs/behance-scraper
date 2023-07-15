@@ -46,7 +46,7 @@ function App() {
                 </TabPanel>
                 <TabPanel>{scrapeData && JSON.stringify(scrapeData)}</TabPanel>
                 <TabPanel>
-                  <Getter></Getter>
+                  <Getter setScrapeData={setScrapeData}></Getter>
                 </TabPanel>
                 <TabPanel>
                   <About></About>
