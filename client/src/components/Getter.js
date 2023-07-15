@@ -16,7 +16,7 @@ import {
 import { useState } from "react";
 import axios from "axios";
 
-export default function Getter() {
+export default function Getter({ setScrapeData }) {
   const [username, setUsername] = useState();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,6 +27,10 @@ export default function Getter() {
         });
         // setUserData(response.data);
         console.log("resp:", response.data);
+
+        // set above
+        // setScrapeData(response.data.result)
+        // console.log()
       } catch (error) {
         console.error("Error:", error.message);
         // Handle error state

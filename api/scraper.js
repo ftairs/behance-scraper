@@ -1,8 +1,9 @@
-const axios = require("axios");
-const cheerio = require("cheerio");
+// const axios = require("axios");
+// const cheerio = require("cheerio");
 const { writeFile } = require("fs/promises");
-const { config } = require("./config");
+// const { config } = require("./config");
 
+// for making a hard copy
 async function writeToFile(fileName, data) {
   try {
     await writeFile(fileName, data);
@@ -14,6 +15,11 @@ async function writeToFile(fileName, data) {
 
 function scraper({ username }) {
   console.log("USERNAME___", username);
+  let data = ["empty array"];
+
+  //final stuff
+  writeToFile("data.json", JSON.stringify(data));
+  return data;
 }
 module.exports = {
   scraper,
