@@ -14,13 +14,26 @@ import {
   Grid,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import axios from "axios";
 
 export default function Getter() {
   const [username, setUsername] = useState();
-
-  const requestData = () => {
-    console.log("requesting - " + username);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (username.length) {
+      try {
+        const response = await axios.post("http://localhost:8553/user", {
+          username,
+        });
+        // setUserData(response.data);
+        console.log("resp:", response.data);
+      } catch (error) {
+        console.error("Error:", error.message);
+        // Handle error state
+      }
+    }
   };
+
   return (
     <Box>
       <Box fontSize="3xl">DO NOT USE THIS</Box>
@@ -31,15 +44,7 @@ export default function Getter() {
         placeholder="username here"
         mb={4}
       />
-      <Button
-        onClick={(e) => {
-          if (username.length) {
-            requestData();
-          }
-        }}
-        margin="0 auto"
-        display="block"
-      >
+      <Button onClick={handleSubmit} margin="0 auto" display="block">
         Get User Data
       </Button>
       username - {username}

@@ -1,6 +1,4 @@
 // Custom Behance Scraper - 2023 - github.com/ftairs - Victor Fuentes
-
-// required packages
 const axios = require("axios");
 const cheerio = require("cheerio");
 const { writeFile } = require("fs/promises");

@@ -11,6 +11,7 @@ require("./helpers/removePlaceholders.css");
 
 function App() {
   const [scrapeData, setScrapeData] = useState(undefined);
+
   useEffect(() => {
     document.title = "Behance Scraper";
   }, []);
