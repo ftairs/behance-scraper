@@ -3,14 +3,17 @@ const axios = require("axios");
 const cors = require("cors");
 const app = express();
 const { scraper } = require("./scraper");
+const { getDetails } = require("./getdetails");
 
 app.use(express.json());
-app.use(cors()); // Enable CORS for all routes
+app.use(cors());
 app.post("/user", async (req, res) => {
   try {
-    // console.log(req.body);
     scraper(req.body).then((data) => {
-      res.json(data);
+      let newRes = getDetails(data);
+      newRes.then((newdata) => {
+        res.json(newdata);
+      });
     });
   } catch (error) {
     console.error("Error:", error.message);
@@ -18,7 +21,7 @@ app.post("/user", async (req, res) => {
   }
 });
 
-const port = 8553; // Set the desired port number
+const port = 8553;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

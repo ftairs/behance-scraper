@@ -23,32 +23,38 @@ export default function Carditem({ item, setLoadedContent }) {
     tags: [],
   });
 
-  const createArrays = (setDetails) => {
-    let types = [];
-    let tags = [];
-
-    item.type.map((type, ind) => {
-      types.push(type);
-    });
-
-    item.tags.map((tag, ind) => {
-      tags.push(tag);
-    });
-    let newObj = { ...details, type: types, tags: tags };
-    setDetails(newObj);
-    setDetailsReady(true);
-  };
-
   useEffect(() => {
-    createArrays(setDetails);
+    const createArrays = (setDetails, setDetailsReady) => {
+      let types = [];
+      let tags = [];
+
+      // if (item.type) {
+      //   item.type.map((type, ind) => {
+      //     types.push(type);
+      //   });
+      // }
+
+      // if (item.tags) {
+      //   item.tags.map((tag, ind) => {
+      //     tags.push(tag);
+      //   });
+      // }
+      console.log(details);
+
+      let newObj = { ...details, type: types, tags: tags };
+      setDetails(newObj);
+      setDetailsReady(true);
+    };
+    createArrays(setDetails, setDetailsReady);
     // console.log(details);
-  }, [setDetails]);
+  }, [setDetails, setDetailsReady]);
 
   return (
     <GridItem
+      key={item.title}
       border="1px solid gray"
       borderRadius={14}
-      p={8}
+      p={0}
       pos="relative"
       overflow="hidden"
       onClick={() => {
@@ -63,11 +69,18 @@ export default function Carditem({ item, setLoadedContent }) {
     >
       <Stack>
         <Box>
-          <Image w="100%" mt={2} src={item.image}></Image>
+          <Image w="100%" src={item.image} height="100%"></Image>
         </Box>
         <Box>
-          <Link href={"https://behance.com" + item.projectURL}>
-            <Heading>{item.title}</Heading>
+          <Link
+            position="absolute"
+            top="0"
+            left="0"
+            href={"https://behance.com" + item.projectURL}
+          >
+            <Heading fontSize={60} p={8} color="white">
+              {item.title}
+            </Heading>
           </Link>
         </Box>
         <Stack
@@ -82,14 +95,15 @@ export default function Carditem({ item, setLoadedContent }) {
           opacity={isHovered ? "1" : "0"}
           padding={8}
           borderRadius={14}
-          gap={4}
+          gap={0}
+          // position="relative"
         >
           <Heading color="brand.main" textTransform="Capitalize">
             {item.title}
           </Heading>
           {detailsReady &&
             Object.keys(details).map((key, index) => {
-              if (details[key].length) {
+              if (details[key]) {
                 return (
                   <Box key={key}>
                     <Box>
@@ -108,6 +122,7 @@ export default function Carditem({ item, setLoadedContent }) {
                   </Box>
                 );
               }
+              return <></>;
             })}
         </Stack>
       </Stack>

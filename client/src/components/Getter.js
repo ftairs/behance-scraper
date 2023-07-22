@@ -1,17 +1,10 @@
 import {
   Box,
-  Heading,
   Input,
   InputGroup,
   InputLeftAddon,
   Button,
   Flex,
-  Text,
-  Stack,
-  Link,
-  Image,
-  GridItem,
-  Grid,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
@@ -38,19 +31,30 @@ export default function Getter({ setScrapeData }) {
   };
 
   return (
-    <Box>
-      <Box fontSize="3xl">DO NOT USE THIS</Box>
-      <Input
-        onChange={(e) => {
-          setUsername(e.target.value);
-        }}
-        placeholder="username here"
-        mb={4}
-      />
-      <Button onClick={handleSubmit} margin="0 auto" display="block">
-        Get User Data
-      </Button>
-      username - {username}
-    </Box>
+    <Flex>
+      <InputGroup mr={4}>
+        <InputLeftAddon children="behance.net/" />
+        <Input
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+          placeholder="username here"
+          mb={4}
+        />
+      </InputGroup>
+      <Box>
+        <Button
+          onClick={handleSubmit}
+          margin="0 auto"
+          display="block"
+          _hover={{
+            background: "brand.main",
+            color: "white",
+          }}
+        >
+          Get User Data
+        </Button>
+      </Box>
+    </Flex>
   );
 }

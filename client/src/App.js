@@ -1,11 +1,13 @@
-import { Box, Heading, Text, Stack } from "@chakra-ui/react";
+import { Box, Heading, Button, Text, Stack } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import data from "./data/scraped_data";
 import Cardview from "./components/Cardview";
 import Jsonview from "./components/Jsonview";
 import Getter from "./components/Getter";
 import About from "./components/About";
+import { FaArrowRight } from "react-icons/fa";
+import DownloadButton from "./components/DownloadButton";
+
 require("react-json-pretty/themes/adventure_time.css");
 require("./helpers/removePlaceholders.css");
 
@@ -15,9 +17,7 @@ function App() {
   useEffect(() => {
     document.title = "Behance Scraper";
   }, []);
-  useEffect(() => {
-    setScrapeData(data);
-  }, []);
+
   return (
     <>
       <Box>
@@ -27,56 +27,55 @@ function App() {
           </Text>{" "}
           Scraper
         </Heading>
-        {data.length && (
-          <Box maxW="980px" margin="0 auto">
-            <Tabs border={"none"} align="center">
-              <TabList mb={8} border={"none"}>
-                <Tab>Pretty</Tab>
-                <Tab>Cards</Tab>
-                <Tab>Plain Text</Tab>
-                <Tab>Getter API</Tab>
-                <Tab>About</Tab>
-              </TabList>
-              <TabPanels align="left">
+        <Box margin="0 auto">
+          <Tabs border={"none"} align="center">
+            <TabList mb={4} border={"none"}>
+              {scrapeData && (
+                <>
+                  <Tab>Pretty</Tab>
+                  <Tab>Cards</Tab>
+                  <Tab>Plain Text</Tab>
+                </>
+              )}
+              <Tab>Getter API</Tab>
+              <Tab>About</Tab>
+            </TabList>
+            <TabPanels align="left">
+              {scrapeData && (
                 <TabPanel>
                   <Jsonview data={scrapeData}></Jsonview>
                 </TabPanel>
+              )}
+              {scrapeData && (
                 <TabPanel>
                   <Cardview data={scrapeData}></Cardview>
                 </TabPanel>
-                <TabPanel>{scrapeData && JSON.stringify(scrapeData)}</TabPanel>
+              )}
+              {scrapeData && (
                 <TabPanel>
-                  <Getter setScrapeData={setScrapeData}></Getter>
-                </TabPanel>
-                <TabPanel>
-                  <About></About>
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
-          </Box>
-        )}
-      </Box>
+                  <Box
+                    background="#1e1e1e"
+                    p={8}
+                    overflow="scroll"
+                    borderRadius={8}
+                    color="white"
+                  >
+                    <DownloadButton content={scrapeData}></DownloadButton>
 
-      {!data.length && (
-        <Box
-          position="fixed"
-          top="50%"
-          left="50%"
-          transform="translate(-50%,-50%)"
-          background="red"
-          color="white"
-          fontWeight="600"
-          textTransform={"uppercase"}
-          p={8}
-          borderRadius={8}
-        >
-          <Heading mb={8}>No Data</Heading>
-          <Text>
-            Make sure you've generated a file using the scrape.js file at the
-            root of this project.
-          </Text>
+                    {scrapeData && JSON.stringify(scrapeData)}
+                  </Box>
+                </TabPanel>
+              )}
+              <TabPanel>
+                <Getter setScrapeData={setScrapeData}></Getter>
+              </TabPanel>
+              <TabPanel>
+                <About></About>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
         </Box>
-      )}
+      </Box>
     </>
   );
 }

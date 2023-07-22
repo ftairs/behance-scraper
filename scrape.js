@@ -12,10 +12,7 @@ async function writeToFile(fileName, data) {
     console.error(`Got an error trying to write the file: ${error.message}`);
   }
 }
-
 console.log("beginning scrape...");
-
-// Gets basic information
 axios.get(config.userURL).then(({ data }) => {
   const $ = cheerio.load(data);
   let allProjects = [];
@@ -37,14 +34,12 @@ axios.get(config.userURL).then(({ data }) => {
     })
     .toArray();
 
-  // Gets specific project data
   if (config.digDeep) {
     allProjects.map((item, index) => {
       axios
         .get("https://www.behance.net" + item.projectURL)
         .then(({ data }) => {
           const $$ = cheerio.load(data);
-          //TODO: convert to spread concat
           allProjects[index].date = $$("time:first-of-type").first().text();
           allProjects[index].views = $$(".beicons-pre-eye").first().text();
           allProjects[index].commentCount = $$(".qa-project-comment-count")
@@ -64,31 +59,12 @@ axios.get(config.userURL).then(({ data }) => {
             const $field = $(field);
             allProjects[index].tags.push($field.find("a").text());
           });
-          // Outside the UI
           writeToFile("scrape.json", JSON.stringify(allProjects));
-          // Inside the UI
-          writeToFile(
-            "client/src/data/scraped_data.js",
-            `
-            const data = ${JSON.stringify(allProjects)};
-            export default data;
-            `
-          );
+          console.log(allProjects);
         });
     });
   } else {
-    // Outside the UI
     writeToFile("scrape.json", JSON.stringify(allProjects));
-    // Inside the UI
-    writeToFile(
-      "client/src/data/scraped_data.js",
-      `
-      const data = ${JSON.stringify(allProjects)};
-      export default data;
-      `
-    );
+    console.log(allProjects);
   }
 });
-
-// TODO: pull images as object
-// const getImageData = () => {}
