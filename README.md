@@ -5,6 +5,8 @@ tool that merges the digital and physical realms to safeguard your
 artistic heritage. Experience peace of mind, effortless accessibility,
 and a profound sense of ownership over your creative journey.
 
+<img width="1245" alt="Screen Shot 2023-08-12 at 1 55 13 PM" src="https://github.com/ftairs/behance-scraper/assets/5148240/6ad99e4f-6e3a-471f-8d34-c2368cd765bb">
+
 This project has two parts:
 
 - Scraping Behance for a specific user's data
