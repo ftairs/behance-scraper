@@ -1,5 +1,10 @@
 # Behance Web Scraper
 
+Discover the freedom of owning your creative data with BeScrape - a
+tool that merges the digital and physical realms to safeguard your
+artistic heritage. Experience peace of mind, effortless accessibility,
+and a profound sense of ownership over your creative journey.
+
 This project has two parts:
 
 - Scraping Behance for a specific user's data
@@ -44,5 +49,6 @@ Currently I'm planning to add the following:
 - NodeJS
 - React
 - Axios
+- Superagent (to replace Axios in future)
 - Cheerio
 - ChakraUI
