@@ -26,11 +26,10 @@ This project is made to help designers but does require a basic knowledge of npm
 1. Pull the repo
 2. Install packages in the main directory and the client directory, where the react project is located.
 3. Open `./config.js` and adjust the username on line 1.
-4. Open the terminal on the main directory and run `node scrape.js`
-5. Wait for the files to write
-6. Change directory to client, using `cd client`
-7. Start the viewer with `npm start`
-8. The viewer should open in your default browser
+4. `cd` into the api directory and run `node server.js`
+5. Open another terminal
+6. `cd` into the client directory and run `npm start`
+7. View the React app and imput a username. The data will be scraped and viewing options will appear.
 9. Check it out!
 
 ## So now what?
