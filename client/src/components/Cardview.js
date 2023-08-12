@@ -5,7 +5,7 @@ export default function Cardview({ data }) {
   const [loadedContent, setLoadedContent] = useState(undefined);
   return (
     <>
-      <Grid templateColumns="repeat(2, 1fr)" gap={0} width="100%">
+      <Grid templateColumns="repeat(2, 1fr)" gap={10} width="100%">
         {data &&
           data.map((item) => {
             return (
@@ -39,7 +39,6 @@ export default function Cardview({ data }) {
           >
             Close Content
           </Button>
-
           <Box dangerouslySetInnerHTML={{ __html: loadedContent }}></Box>
         </Box>
       )}

@@ -23,9 +23,9 @@ function App() {
       <Box>
         <Heading p={8} w="full" textAlign="center">
           <Text display="inline-block" color="brand.main">
-            Behance
-          </Text>{" "}
-          Scraper
+            Be
+          </Text>
+          Scrape
         </Heading>
         <Box margin="0 auto">
           <Tabs border={"none"} align="center">

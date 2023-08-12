@@ -1,6 +1,5 @@
 import JSONPretty from "react-json-pretty";
-import { Box, Button, Text } from "@chakra-ui/react";
-import { FaArrowRight } from "react-icons/fa";
+import { Box } from "@chakra-ui/react";
 import DownloadButton from "./DownloadButton";
 
 export default function Jsonview({ data }) {
