@@ -76,6 +76,18 @@ function App() {
           </Tabs>
         </Box>
       </Box>
+      <Box
+        pos="fixed"
+        bottom={4}
+        right={4}
+        padding={2}
+        backgroundColor="white"
+        borderRadius={20}
+        boxShadow="4px 2px 6px rgba(0,0,0,0.25)"
+        fontSize="xs"
+      >
+        Made By Victor Fuentes
+      </Box>
     </>
   );
 }
