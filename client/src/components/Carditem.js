@@ -28,17 +28,17 @@ export default function Carditem({ item, setLoadedContent }) {
       let types = [];
       let tags = [];
 
-      // if (item.type) {
-      //   item.type.map((type, ind) => {
-      //     types.push(type);
-      //   });
-      // }
+      if (item.type) {
+        item.type.map((type, ind) => {
+          types.push(type);
+        });
+      }
 
-      // if (item.tags) {
-      //   item.tags.map((tag, ind) => {
-      //     tags.push(tag);
-      //   });
-      // }
+      if (item.tags) {
+        item.tags.map((tag, ind) => {
+          tags.push(tag);
+        });
+      }
       console.log(details);
 
       let newObj = { ...details, type: types, tags: tags };
@@ -72,16 +72,16 @@ export default function Carditem({ item, setLoadedContent }) {
           <Image w="100%" src={item.image} height="100%"></Image>
         </Box>
         <Box>
-          <Link
+          <Heading
             position="absolute"
             top="0"
             left="0"
-            href={"https://behance.com" + item.projectURL}
+            fontSize={60}
+            p={8}
+            color="white"
           >
-            <Heading fontSize={60} p={8} color="white">
-              {item.title}
-            </Heading>
-          </Link>
+            {item.title}
+          </Heading>
         </Box>
         <Stack
           position="absolute"
@@ -98,14 +98,20 @@ export default function Carditem({ item, setLoadedContent }) {
           gap={0}
           // position="relative"
         >
-          <Heading color="brand.main" textTransform="Capitalize">
-            {item.title}
-          </Heading>
+          <Link
+            href={"https://behance.com" + item.projectURL}
+            target="_blank"
+            mb={4}
+          >
+            <Heading color="brand.main" textTransform="Capitalize">
+              {item.title}
+            </Heading>
+          </Link>
           {detailsReady &&
             Object.keys(details).map((key, index) => {
               if (details[key]) {
                 return (
-                  <Box key={key}>
+                  <Box key={key} mb={4}>
                     <Box>
                       <Heading
                         color="brand.main"
@@ -118,7 +124,21 @@ export default function Carditem({ item, setLoadedContent }) {
                       </Heading>
                       <Tag>{typeof details[key]}</Tag>
                     </Box>
-                    <Text fontSize="xl">{details[key]}</Text>
+                    {typeof details[key] === "string" && (
+                      <Text fontSize="xl">{details[key]}</Text>
+                    )}
+
+                    {typeof details[key] === "object" && (
+                      <Box>
+                        {details[key].map((item) => {
+                          return (
+                            <Tag colorScheme="blue" marginY={2} mr={2}>
+                              {item}
+                            </Tag>
+                          );
+                        })}
+                      </Box>
+                    )}
                   </Box>
                 );
               }
