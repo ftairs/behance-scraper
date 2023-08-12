@@ -31,12 +31,14 @@ export default function Carditem({ item, setLoadedContent }) {
       if (item.type) {
         item.type.map((type, ind) => {
           types.push(type);
+          return type;
         });
       }
 
       if (item.tags) {
         item.tags.map((tag, ind) => {
           tags.push(tag);
+          return tag;
         });
       }
       console.log(details);
@@ -47,7 +49,7 @@ export default function Carditem({ item, setLoadedContent }) {
     };
     createArrays(setDetails, setDetailsReady);
     // console.log(details);
-  }, [setDetails, setDetailsReady]);
+  }, [details, item.tags, item.type, setDetails, setDetailsReady]);
 
   return (
     <GridItem
