@@ -9,6 +9,7 @@ This project has two parts:
 
 - Scraping Behance for a specific user's data
 - A React viewer for seeing that data in 3 formats
+- Ability to download scraped data as JSON
 
 ## Why does this exist?
 
